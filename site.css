@@ -37,18 +37,17 @@ ul {
 
 li {
   float: left;
+  padding-right: 10px;
 }
 
 li a {
   display: block;
-  color: white;
   text-align: center;
-  padding: 16px;
   text-decoration: none;
 }
 
 .social-links {
-	height: 3rem;
+    font-size: clamp(1rem, 1.2em, 1.4rem);
 }
 
 .social-links img {
