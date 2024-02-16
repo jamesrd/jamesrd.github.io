@@ -1,6 +1,6 @@
 body {
 	background-color: hsl(0, 0%, 16%);
-	color: white;
+	color: hsl(0, 0%, 86%);
 	padding: 1rem;
 	font-family: "Raleway", sans-serif;
 }
@@ -64,6 +64,28 @@ li a {
 
 .full-page .centered {
 	margin: auto;
+}
+
+.word-reveal {
+	  opacity: 0;
+  filter: blur(4px);
+}
+
+.word-reveal.i-1 {
+  animation: reveal .8s .1s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
+.word-reveal.i-2 {
+  animation: reveal .8s .2s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
+.word-reveal.i-3 {
+  animation: reveal .8s .3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+@keyframes reveal {
+  100% {
+	opacity: 1;
+	filter: blur(0);
+  }
 }
 
 @media screen and (max-width: 650px) {
