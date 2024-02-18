@@ -1,7 +1,14 @@
+var x = 0;
+var y = 0;
+var n = 0;
+var ps = .015;
+var maxPoints = 70000;
+var points = 100;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 var throttled = false;
 var timeout = false;
+var animHandle;
 var delay = 250;
 
 window.addEventListener('resize', function() {
@@ -43,25 +50,28 @@ function drawLine() {
 }
 
 function drawFern() {
-	var ps = .015;
-	// algorithm from Wikipedia
-	// https://en.wikipedia.org/wiki/Barnsley_fern
-	var x = 0;
-	var y = 0;
-	var n = 0;
-	while (n < 1000) {
-		sleep(1).then(() => {
-			var n2 = 0;
-			while (n2 < 70) {
-				[x, y] = drawPoint(x,y,ps);
-				n2++;
-			}
-		});
-		n++;
+	n = 0;
+	if (animHandle != undefined) {
+		window.cancelAnimationFrame(animHandle);
 	}
+	animHandle = window.requestAnimationFrame(step);
 }
 
-function drawPoint(x, y, ps) {
+function step(timeStamp) {
+	if (n > maxPoints) {
+		return;
+	}
+	for (let i = 0; i < points; i++) {
+		drawPoint();
+	}
+
+	n = n + points;
+	animHandle = window.requestAnimationFrame(step);
+}
+
+function drawPoint() {
+	// algorithm from Wikipedia
+	// https://en.wikipedia.org/wiki/Barnsley_fern
 	var xn = 0;
 	var yn = 0;
 	var fill = "darkgreen";
@@ -89,7 +99,8 @@ function drawPoint(x, y, ps) {
 	}
 	ctx.fillStyle = fill;
 	ctx.fillRect(xn, yn, ps, ps);
-	return [xn, yn];
+	x = xn;
+	y = yn;
 }
 
 function getRandomInt(max) {
